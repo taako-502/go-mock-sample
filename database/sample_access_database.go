@@ -1,4 +1,4 @@
-package sample
+package database
 
 import (
 	"context"
@@ -14,17 +14,17 @@ type mongodb struct {
 }
 
 type SampleInteface interface {
-	FindUserByID(ctx context.Context, id primitive.ObjectID) (*user, error)
+	FindUserByID(ctx context.Context, id primitive.ObjectID) (*User, error)
 }
 
-type user struct {
+type User struct {
 	ID    primitive.ObjectID `bson:"_id"`
 	Name  string             `bson:"name"`
 	Email string             `bson:"email"`
 }
 
-func (m *mongodb) FindUserByID(ctx context.Context, id primitive.ObjectID) (*user, error) {
-	var result user
+func (m *mongodb) FindUserByID(ctx context.Context, id primitive.ObjectID) (*User, error) {
+	var result User
 	filter := bson.M{"_id": id}
 	if err := m.db.Collection("users").FindOne(ctx, filter).Decode(&result); err != nil {
 		return nil, err

@@ -1,0 +1,5 @@
+# Mockgen
+
+```bash
+mockgen -source=sample.go -destination=mockgen/mock_sample.go -package=mock_sample
+```
